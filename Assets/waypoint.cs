@@ -6,11 +6,11 @@ public class waypoint : MonoBehaviour
 {
     public Transform position1, position2;
     public float speed = 5;
-    public Transform StartPosition;
+    
     private Vector3 nextPos;
     public void Start()
     {
-       nextPos = StartPosition.position;
+       nextPos = position1.position;
     }
     private void Update()
     {
