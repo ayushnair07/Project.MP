@@ -11,12 +11,18 @@ public class MOVEMENT : MonoBehaviour
     public float height = 5;
     public GameObject Switch;
     public bool action = false;
+    public GameObject light1, light0, light3, light4, light5;
 
     Vector3 right = new Vector2(1, 0);
     Vector3 left = new Vector2(-1, 0);
     private void Start()
     {
         Switch.SetActive(false);
+        light0.SetActive(false);    
+        light1.SetActive(false);
+        light3.SetActive(false);    
+        light4.SetActive(false);
+        light5.SetActive(false);
     }
 
 
@@ -36,7 +42,7 @@ public class MOVEMENT : MonoBehaviour
         }
         if(collision.gameObject.tag=="Kanta")
         {
-            Destroy(rb);
+            Destroy(this.gameObject);
         }
         
 
@@ -48,7 +54,71 @@ public class MOVEMENT : MonoBehaviour
             Switch.SetActive(true);
             action = true;
         }
+       if(other.transform.tag =="Switch1")
+        {                   
+                light0.SetActive(true);
+                light1.SetActive(true);
+        }
+        if (other.transform.tag == "Switch3")
+        {
+            light3.SetActive(true);
+            light4.SetActive(true);
+        }
+        if (other.transform.tag == "Switch4")
+        {
+            light5.SetActive(true);
+            
+        }
+
     }
+    IEnumerator Wait1()
+    {
+        yield return new WaitForSeconds(1.99999f);
+        light0.SetActive(false);
+        light1.SetActive(false);
+    }
+    IEnumerator Wait3()
+    {
+        yield return new WaitForSeconds(1.99999f);
+        light3.SetActive(false);
+        light4.SetActive(false);
+        
+    }
+    IEnumerator Wait4()
+    {
+        yield return new WaitForSeconds(1.99999f);
+        light5.SetActive(false);
+    }
+    private void OnTriggerExit(Collider other)
+    {
+        if (other.transform.tag == "Switch1")
+        {
+
+            StartCoroutine(Wait1());
+
+            
+
+        }
+        if (other.transform.tag == "Switch3")
+        {
+
+            StartCoroutine(Wait3());
+
+
+
+        }
+        if (other.transform.tag == "Switch4")
+        {
+
+            StartCoroutine(Wait4());
+
+
+
+        }
+
+    }
+
+    
 
 
     void FixedUpdate()
@@ -76,7 +146,7 @@ public class MOVEMENT : MonoBehaviour
             {
                 if (isGrounded == true)
                 {
-                    GetComponent<Rigidbody>().AddForce(new Vector3(0, 2, 0), ForceMode.Impulse);
+                    GetComponent<Rigidbody>().AddForce(new Vector3(0, 3, 0), ForceMode.Impulse);
                     isGrounded = false;
                 }
 
