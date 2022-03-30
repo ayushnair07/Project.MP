@@ -13,6 +13,14 @@ public class MOVEMENT : MonoBehaviour
     public bool action = false;
     public GameObject light1, light0, light3;
     public float LeftCorner, RightCorner;
+    public AudioSource levelMusic;
+    public AudioSource JumpMusic;
+    public AudioSource DeathMusic;
+    public AudioSource VictoryMusic;
+    public bool levelmusic=true;
+    public bool jumpMusic=false;
+    public bool deathMusic=false;
+    public bool Victory = false;
 
     Vector3 right = new Vector2(1, 0);
     Vector3 left = new Vector2(-1, 0);
@@ -21,7 +29,9 @@ public class MOVEMENT : MonoBehaviour
         Switch.SetActive(false);
         light0.SetActive(false);    
         light1.SetActive(false);
-        light3.SetActive(false);    
+        light3.SetActive(false);
+        levelMusic.Play();
+        levelmusic = true;
         
     }
 
@@ -42,6 +52,11 @@ public class MOVEMENT : MonoBehaviour
         }
         if(collision.gameObject.tag=="Kanta")
         {
+            levelmusic = false;
+            levelMusic.Stop();
+            DeathMusic.Play();
+            deathMusic = true;
+            
             Destroy(this.gameObject);
         }
         
@@ -124,6 +139,10 @@ public class MOVEMENT : MonoBehaviour
             if (action == true)
             {
                 Switch.SetActive(false);
+                VictoryMusic.Play();
+                Victory = true;
+                levelMusic.Stop();
+                levelmusic = false;
                 //TerrainChangedFlags lvel script here
             }
         }
@@ -143,6 +162,9 @@ public class MOVEMENT : MonoBehaviour
                 {
                     GetComponent<Rigidbody>().AddForce(new Vector3(0, 3, 0), ForceMode.Impulse);
                     isGrounded = false;
+                    jumpMusic = true;
+                    JumpMusic.Play();
+
                 }
 
             }

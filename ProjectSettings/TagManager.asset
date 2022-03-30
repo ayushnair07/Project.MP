@@ -6,6 +6,12 @@ TagManager:
   tags:
   - Ground
   - Platforn
+  - Kanta
+  - Switch1
+  - Switch3
+  - Switch4
+  - Player1 Cam
+  - Player2 Cam
   layers:
   - Default
   - TransparentFX
