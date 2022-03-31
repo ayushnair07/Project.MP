@@ -11,7 +11,7 @@ public class MOVEMENT : MonoBehaviour
     public float height = 5;
     public GameObject Switch;
     public bool action = false;
-    public GameObject light1, light0, light3;
+    public GameObject light1, light0, light3,light4,light5;
     public float LeftCorner, RightCorner;
     public AudioSource levelMusic;
     public AudioSource JumpMusic;
@@ -30,6 +30,8 @@ public class MOVEMENT : MonoBehaviour
         light0.SetActive(false);    
         light1.SetActive(false);
         light3.SetActive(false);
+        light4.SetActive(false);
+        light5.SetActive(false);
         levelMusic.Play();
         levelmusic = true;
         
@@ -72,6 +74,7 @@ public class MOVEMENT : MonoBehaviour
        if(other.transform.tag =="Switch1")
         {
             light3.SetActive(true);
+            light4.SetActive(true);
         }
         if (other.transform.tag == "Switch3")
         {
@@ -80,6 +83,7 @@ public class MOVEMENT : MonoBehaviour
         if (other.transform.tag == "Switch4")
         {
             light0.SetActive(true);
+            light5.SetActive(true);
             
         }
 
@@ -88,6 +92,7 @@ public class MOVEMENT : MonoBehaviour
     {
         yield return new WaitForSeconds(1.99999f);
         light0.SetActive(false);
+        light5.SetActive(false);
     }
     IEnumerator Wait3()
     {
@@ -99,6 +104,7 @@ public class MOVEMENT : MonoBehaviour
     {
         yield return new WaitForSeconds(1.99999f);
         light3.SetActive(false);
+        light4.SetActive(false);
     }
     private void OnTriggerExit(Collider other)
     {
