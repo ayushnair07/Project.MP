@@ -1,9 +1,14 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Photon.Pun;
 
-public class MOVEMENT : MonoBehaviour
+public class MOVEMENT : MonoBehaviourPunCallbacks
 {
+    Transform InstP1, InstP2;
+    GameObject p1, p2;
+    public GameObject Player1PRE, Player2PRE;
+    GameObject P1, P2;
     public Rigidbody rb;
     public Transform car;
     public float speed = 17;
@@ -34,7 +39,18 @@ public class MOVEMENT : MonoBehaviour
         light5.SetActive(false);
         levelMusic.Play();
         levelmusic = true;
-        
+        if(LobbyManager.Instance.Player == 1)
+        {
+            p1 =PhotonNetwork.Instantiate(Player1PRE.name, InstP1.transform.position, Quaternion.identity);
+            P1 = GameObject.Find("Player1");
+            
+        }
+        else
+        {
+            p2 = PhotonNetwork.Instantiate(Player2PRE.name, InstP2.transform.position, Quaternion.identity);
+            P2 = GameObject.Find("Player2");
+        }
+
     }
 
 
@@ -72,7 +88,7 @@ public class MOVEMENT : MonoBehaviour
             action = true;
         }
        if(other.transform.tag =="Switch1")
-        {
+        { 
             light3.SetActive(true);
             light4.SetActive(true);
         }
@@ -90,9 +106,11 @@ public class MOVEMENT : MonoBehaviour
     }
     IEnumerator Wait1()
     {
+      
         yield return new WaitForSeconds(1.99999f);
         light0.SetActive(false);
         light5.SetActive(false);
+        
     }
     IEnumerator Wait3()
     {
@@ -176,40 +194,6 @@ public class MOVEMENT : MonoBehaviour
             }
         
 
-      /*  if (rb.transform.position.x < LeftCorner)
-        {
-            if (Input.GetKey("d"))
-            {
-                rb.MovePosition(car.position + right * speed * Time.deltaTime);
-            }
-            if (Input.GetKey("w"))
-            {
-                if (isGrounded == true)
-                {
-                    GetComponent<Rigidbody>().AddForce(new Vector3(0, 2, 0), ForceMode.Impulse);
-                    isGrounded = false;
-                }
-
-            }
-
-        }
-        if (rb.transform.position.x > RightCorner)
-        {
-            if (Input.GetKey("a"))
-            {
-                rb.MovePosition(car.position + left * speed * Time.deltaTime);
-            }
-            if (Input.GetKey("w"))
-            {
-                if (isGrounded == true)
-                {
-                    GetComponent<Rigidbody>().AddForce(new Vector3(0, 2, 0), ForceMode.Impulse);
-                    isGrounded = false;
-                }
-
-            }
-
-        }*/
 
     }
 
